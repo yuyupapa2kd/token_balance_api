@@ -1,0 +1,8 @@
+FROM ubuntu:22.04
+
+COPY . .
+WORKDIR /
+
+EXPOSE 4000
+
+CMD ["./token_balance_api_dev"]

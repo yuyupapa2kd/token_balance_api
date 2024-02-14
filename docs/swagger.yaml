@@ -1,0 +1,92 @@
+definitions:
+  resource.ResBalance:
+    properties:
+      balance:
+        type: string
+    type: object
+  resource.ResErr:
+    properties:
+      error:
+        type: string
+    type: object
+  resource.ResJSON:
+    properties:
+      data: {}
+      status:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /coin/{address}:
+    get:
+      description: Get Coin Balance of given Address
+      parameters:
+      - description: address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/resource.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resource.ResBalance'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/resource.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resource.ResErr'
+              type: object
+      summary: Get Coin Balance
+      tags:
+      - Coin
+  /token/{symbol}/{address}:
+    get:
+      description: Get Token Balance of given Address
+      parameters:
+      - description: symbol
+        in: path
+        name: symbol
+        required: true
+        type: string
+      - description: address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/resource.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resource.ResBalance'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/resource.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resource.ResErr'
+              type: object
+      summary: Get Token Balance
+      tags:
+      - Token
+swagger: "2.0"
